@@ -1,40 +1,31 @@
 package com.forja.Models;
 
+import com.forja.Models.Enums.AccountStatusEnum;
+import lombok.*;
+
+import java.math.BigDecimal;
+import java.util.List;
+
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class Account {
     private Long id;
-    private String name;
-    private String number;
-    private String address;
+    private User user;
+    private AccountStatusEnum status;
+    private List<Transfer> transfers;
+    private BigDecimal balance;
 
-    public Long getId() {
-        return id;
+    protected void withdraw(BigDecimal value) throws Exception {
+        BigDecimal newBalance = this.getBalance().subtract(value);
+        if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
+            //TODO: Create a transfer exception
+            throw new Exception("Transfer rejected");
+        } else {
+            this.setBalance(newBalance);
+        }
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNumber() {
-        return number;
-    }
-
-    public void setNumber(String number) {
-        this.number = number;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
+    public abstract void doWithdraw(BigDecimal value);
 }

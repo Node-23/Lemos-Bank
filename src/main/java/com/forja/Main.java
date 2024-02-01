@@ -10,5 +10,6 @@ public class Main {
         UIService.lineOutput("2 - Register account");
         UIService.lineOutput("3 - Exit");
         UIService.FooterOutput();
+        int option = UIService.getUserOption();
     }
 }
