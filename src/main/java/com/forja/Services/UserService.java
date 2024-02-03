@@ -15,22 +15,23 @@ public class UserService {
     private static long idCount = 1;
     private static final Logger logger = LogManager.getLogger(UserService.class);
 
-    private static User RegisterUser(String name, String email, String password, String address, String phoneNumber, String cpf, Class<?> typeOfUser){
+    protected static User RegisterUser(String name, String email, String password, String address, String phoneNumber, String cpf, Class<?> typeOfUser){
+        User user = null;
         if(typeOfUser == CommonUser.class){
-            CommonUser commonUser = new CommonUser(idCount,name, email, password, LocalDateTime.now(), UserStatusEnum.ACTIVE, address, phoneNumber, null, cpf);
-            idCount++;
-            try {
-                UserValidator.ValidateUser(commonUser);
-            }catch (Exception e){
-                //TODO: Log
-                logger.error(e);
-                UIService.errorOutput(e.getMessage());
-            }
-            return commonUser;
+            user = new CommonUser(idCount,name, email, password, LocalDateTime.now(), UserStatusEnum.ACTIVE, address, phoneNumber, null, cpf);
         }else if(typeOfUser == Enterprise.class){
+            user = new Enterprise();
+        }
+        idCount++;
+        try {
+            UserValidator.ValidateUser(user);
+            return user;
+        }catch (Exception e){
+            //TODO: Log
+            logger.error(e);
+            UIService.errorOutput(e.getMessage());
             return null;
         }
-        return null;
     }
 
     public static CommonUser CreateCommonUser(){
