@@ -4,7 +4,13 @@ import java.util.Scanner;
 
 public class UIService {
     private static final Scanner input = new Scanner (System.in);
-    private static final int TEXT_MAX_SIZE = 28;
+    private static int headerSize;
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_GREEN = "\u001B[32m";
+    public static final String ANSI_YELLOW = "\u001B[33m";
+    public static final String ANSI_BLUE = "\u001B[34m";
+
 
     public static int getUserOption(){
         return input.nextInt();
@@ -13,13 +19,18 @@ public class UIService {
     public static String getUserInput(){
         return input.nextLine();
     }
+    public static void resetInput(){
+        input.nextLine();
+    }
 
-    public static void HeaderOutPut(){
-        System.out.println("*------------****--------------*");
+    public static void HeaderOutPut(String menuName){
+        headerSize = 28 + menuName.length();
+        System.out.println("*------------" + menuName + "--------------*");
     }
 
     public static void FooterOutput(){
-        System.out.println("*------------------------------*\n");
+        String lineLength = "-".repeat(headerSize-2);
+        System.out.println("*" + lineLength + "*\n");
     }
 
     public static void welcomeHeader(){
@@ -27,29 +38,20 @@ public class UIService {
     }
 
     public static void lineOutput(String text){
-        String data = "";
-        if(text.trim().length() <= TEXT_MAX_SIZE){
-            data += "| " + text.trim() +
-                    fillWithSpace(TEXT_MAX_SIZE - text.trim().length()) +
-                    " |";
-        }else{
-            int linesCount = (int) Math.ceil((double) text.length() / TEXT_MAX_SIZE);
-            String[] arr = new String[linesCount];
-
-            for (int i = 0; i < linesCount; i++) {
-                arr[i] = text.substring(i * (TEXT_MAX_SIZE -1), Math.min((i + 1) * (TEXT_MAX_SIZE -1), text.length()));
-            }
-
-            StringBuilder output = new StringBuilder();
-            for (int i = 0; i < arr.length; i++) {
-                output.append("| ").append(arr[i]).append(i == arr.length-1? fillWithSpace(TEXT_MAX_SIZE - arr[i].length()) + " |":"- |\n");
-            }
-            data += output.toString();
-        }
-        System.out.println(data);
+        System.out.println(text.trim());
     }
 
-    private static String fillWithSpace(int spaceCount){
-        return " ".repeat(spaceCount);
+    public static void errorOutput(String text){
+        System.out.println(ANSI_RED + text.trim() + ANSI_RESET);
     }
+    public static void warningOutput(String text){
+        System.out.println(ANSI_YELLOW + text.trim() + ANSI_RESET);
+    }
+    public static void sucessOutput(String text){
+        System.out.println(ANSI_GREEN + text.trim() + ANSI_RESET);
+    }
+    public static void otherOutput(String text){
+        System.out.println(ANSI_BLUE + text.trim() + ANSI_RESET);
+    }
+
 }

@@ -4,6 +4,10 @@ import com.forja.Models.Enums.UserStatusEnum;
 import lombok.*;
 
 import java.time.LocalDateTime;
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public abstract class User {
     private Long id;
     private String name;
