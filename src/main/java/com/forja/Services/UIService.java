@@ -11,6 +11,10 @@ public class UIService {
     public static final String ANSI_YELLOW = "\u001B[33m";
     public static final String ANSI_BLUE = "\u001B[34m";
 
+    public static void clearConsole() {
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
+    }
 
     public static int getUserOption(){
         return input.nextInt();
@@ -24,6 +28,7 @@ public class UIService {
     }
 
     public static void HeaderOutPut(String menuName){
+        clearConsole();
         headerSize = 28 + menuName.length();
         System.out.println("*------------" + menuName + "--------------*");
     }
