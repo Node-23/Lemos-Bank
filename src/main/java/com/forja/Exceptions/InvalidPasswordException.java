@@ -5,7 +5,6 @@ public class InvalidPasswordException extends Exception{
         super(message);
     }
 
-    // Constructor with a default error message
     public InvalidPasswordException() {
         super("Invalid Password");
     }

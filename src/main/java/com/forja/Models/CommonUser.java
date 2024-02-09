@@ -5,22 +5,12 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Getter
-@Setter
 @NoArgsConstructor
 public class CommonUser extends User{
-    private String address;
-    private String phoneNumber;
-    private Account account;
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
     private String cpf;
 
     public CommonUser(Long id, String name, String email, String password, LocalDateTime createAt, UserStatusEnum status, String address, String phoneNumber, Account account, String cpf) {
-        super(id, name, email, password, createAt, status);
-        this.address = address;
-        this.phoneNumber = phoneNumber;
-        this.account = account;
+        super(id, name, email, phoneNumber, address, account, password, createAt, status);
         this.cpf = cpf;
     }
 

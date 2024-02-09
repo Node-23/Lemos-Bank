@@ -5,7 +5,6 @@ public class InvalidCNPJException extends Exception{
         super(message);
     }
 
-    // Constructor with a default error message
     public InvalidCNPJException() {
         super("Invalid CNPJ");
     }

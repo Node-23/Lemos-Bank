@@ -5,7 +5,6 @@ public class InvalidEmailException extends Exception{
         super(message);
     }
 
-    // Constructor with a default error message
     public InvalidEmailException() {
         super("Invalid Email");
     }
