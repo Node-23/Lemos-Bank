@@ -5,7 +5,4 @@ public class InvalidCPFException extends Exception{
         super(message);
     }
 
-    public InvalidCPFException() {
-        super("Invalid CPF");
-    }
 }

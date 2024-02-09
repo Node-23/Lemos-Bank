@@ -2,13 +2,15 @@ package com.forja.Validators;
 
 import com.forja.Exceptions.*;
 import com.forja.Models.CommonUser;
-import com.forja.Models.Enterprise;
 import com.forja.Models.User;
 
+import java.util.regex.Pattern;
+
 public class UserValidator {
-    private static final String specialCharacters = ".*[^a-zA-Z0-9\\s].*";
-    private static final String upperCase = ".*[A-Z].*";
-    private static final String lowerCase = ".*[a-z].*";
+    private static final String specialCharacters = ".*[" + Pattern.quote("!@#$%^&*()-_=+") + "].*";
+    private static final String upperCaseCharacters = ".*[A-Z].*";
+    private static final String lowerCaseCharacters = ".*[a-z].*";
+    private static final String numbersCharacters = ".*\\d.*";
 
     public static void ValidateUser(User user) throws InvalidEmailException, InvalidPasswordException, InvalidCNPJException, InvalidCPFException, InvalidPhoneException, InvalidAddressException {
         ValidateEmail(user.getEmail());
@@ -20,7 +22,7 @@ public class UserValidator {
 
     private static void ValidateEmail(String email) throws InvalidEmailException {
         if(!email.contains("@")){
-            throw new InvalidEmailException("Invalid Email");
+            throw new InvalidEmailException();
         }
     }
 
@@ -31,20 +33,28 @@ public class UserValidator {
     }
 
     private static void ValidatePassword(String password) throws InvalidPasswordException {
-        if(password.length() < 6 || password.matches(specialCharacters) || password.matches(upperCase) || password.matches(lowerCase)){
-            throw new InvalidPasswordException("Invalid Password");
+        if (password.length() < 6) {
+            throw new InvalidPasswordException(InvalidPasswordException.shorterPasswordExceptionMessage);
+        } else if (!password.matches(specialCharacters)) {
+            throw new InvalidPasswordException(InvalidPasswordException.specialCharacterPasswordExceptionMessage);
+        } else if (!password.matches(upperCaseCharacters)) {
+            throw new InvalidPasswordException(InvalidPasswordException.upperCaseCharacterPasswordExceptionMessage);
+        } else if (!password.matches(lowerCaseCharacters)) {
+            throw new InvalidPasswordException(InvalidPasswordException.lowerCaseCharacterPasswordExceptionMessage);
+        } else if (!password.matches(numbersCharacters)) {
+            throw new InvalidPasswordException(InvalidPasswordException.numericCharacterPasswordExceptionMessage);
         }
     }
     private static void ValidateAddress(String address) throws  InvalidAddressException{
         if(address.isEmpty()){
-            throw new InvalidAddressException("Invalid Password");
+            throw new InvalidAddressException();
         }
     }
 
     private static void ValidateDocument(String document, Class<?> typeOfUser) throws InvalidCPFException, InvalidCNPJException {
         if(typeOfUser == CommonUser.class){
             isValidCPF(document);
-        }else if(typeOfUser == Enterprise.class){
+        }else{
             isValidCNPJ(document);
         }
     }
