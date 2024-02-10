@@ -1,15 +1,21 @@
 package com.forja.Views;
 
+import com.forja.DAO.UsersDAO;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enterprise;
+import com.forja.Models.User;
 import com.forja.Services.UIService;
-import com.forja.Services.UserService;
 
-public class FirstMenu {
+public class LoginMenu {
     public static void doOption(int option){
         switch (option){
             case 1:
-                //TODO: Login
+                User user = UIService.Login();
+                if(user == null){
+                    break;
+                }
+                UsersDAO.setLoggedUser(user);
+                HomeMenu.doHomeMenu();
                 break;
             case 2:
                 UIService.HeaderOutPut("TYPE OF USER");
@@ -19,15 +25,19 @@ public class FirstMenu {
                 int typeOfUser = UIService.getUserOption();
                 Class<?> type = getTypeOfUser(typeOfUser);
                 if(type == CommonUser.class){
-                    CommonUser newUser = UserService.CreateCommonUser();
+                    UsersDAO.saveUser(UIService.CreateCommonUser());
                 }else if(type == Enterprise.class){
-                    Enterprise newUser = UserService.CreateEnterpriseUser();
+                    UsersDAO.saveUser(UIService.CreateEnterpriseUser());
                 }else{
                     UIService.errorOutput("Invalid option!");
                 }
                 break;
             case 3:
                 UIService.otherOutput("Closing...");
+                break;
+            case 9:
+                UsersDAO.setLoggedUser(UsersDAO.getUsers().get(0));
+                HomeMenu.doHomeMenu();
                 break;
             default:
                 UIService.errorOutput("Invalid option!");

@@ -1,11 +1,8 @@
 package com.forja;
 
-import com.forja.Models.CommonUser;
-import com.forja.Models.Enterprise;
 import com.forja.Services.UIService;
-import com.forja.Services.UserService;
 
-import static com.forja.Views.FirstMenu.doOption;
+import static com.forja.Views.LoginMenu.doOption;
 
 
 public class Main {
@@ -19,7 +16,6 @@ public class Main {
             UIService.lineOutput("3 - Exit");
             UIService.FooterOutput();
             option = UIService.getUserOption();
-            UIService.resetInput();
             doOption(option);
         }while (option != 3);
     }

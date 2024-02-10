@@ -1,5 +1,7 @@
 package com.forja.Services;
 
+import com.forja.DAO.UsersDAO;
+import com.forja.Exceptions.UserException;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enterprise;
 import com.forja.Models.Enums.UserStatusEnum;
@@ -34,41 +36,17 @@ public class UserService {
         }
     }
 
-    public static CommonUser CreateCommonUser(){
-        UIService.resetInput();
-        UIService.HeaderOutPut("REGISTER USER");
-        UIService.lineOutput("Your name:");
-        String name = UIService.getUserInput();
-        UIService.lineOutput("Your email:");
-        String email = UIService.getUserInput();
-        UIService.lineOutput("Your address:");
-        String address = UIService.getUserInput();
-        UIService.lineOutput("Your phoneNumber:");
-        String phoneNumber = UIService.getUserInput();
-        UIService.lineOutput("Your CPF:");
-        String cpf = UIService.getUserInput();
-        UIService.lineOutput("Your password:");
-        String password = UIService.getUserInput();
-        UIService.FooterOutput();
-        return (CommonUser) UserService.RegisterUser(name, email, password, address, phoneNumber, cpf, CommonUser.class);
-    }
-
-    public static Enterprise CreateEnterpriseUser() {
-        UIService.resetInput();
-        UIService.HeaderOutPut("REGISTER USER");
-        UIService.lineOutput("Business name:");
-        String name = UIService.getUserInput();
-        UIService.lineOutput("Your email:");
-        String email = UIService.getUserInput();
-        UIService.lineOutput("Your address:");
-        String address = UIService.getUserInput();
-        UIService.lineOutput("Your phoneNumber:");
-        String phoneNumber = UIService.getUserInput();
-        UIService.lineOutput("Your CNPJ:");
-        String cnpj = UIService.getUserInput();
-        UIService.lineOutput("Your password:");
-        String password = UIService.getUserInput();
-        UIService.FooterOutput();
-        return (Enterprise) UserService.RegisterUser(name, email, password, address, phoneNumber, cnpj, Enterprise.class);
+    protected static User doLogin(String email, String password){
+        try {
+            User user = UsersDAO.findUserByEmail(email).orElseThrow(() -> new UserException(UserException.invalidLoginMessage));
+            if(!user.getPassword().equals(password)){
+                throw new UserException(UserException.invalidLoginMessage);
+            }
+            return user;
+        } catch (UserException e) {
+            logger.error(e);
+            UIService.errorOutput(e.getMessage());
+            return null;
+        }
     }
 }
