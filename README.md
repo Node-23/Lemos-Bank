@@ -1,4 +1,4 @@
-# Lemos Bank
+# Lemos Bank ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/Node-23/Lemos-Bank/.github/workflows/maven.yml)
 
 ### First Stage:
     * Only the application, when closed, all data are lost
