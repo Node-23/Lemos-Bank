@@ -1,5 +1,6 @@
 package com.forja.Services;
 
+import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.*;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enums.UserStatusEnum;
@@ -195,5 +196,66 @@ public class CommonUserTest {
         );
         InvalidPasswordException exception = assertThrows(InvalidPasswordException.class, () -> UserValidator.ValidateUser(newCommonUser));
         assertEquals(InvalidPasswordException.numericCharacterPasswordExceptionMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testLoginCommonUserSuccessfully() {
+        CommonUser actual = (CommonUser)UserService.RegisterUser(
+                "Chico da Silva",
+                "chicos@email.com",
+                "Test@123",
+                "Rua das Oliveiras, 120",
+                "86999586325",
+                "25695874852",
+                CommonUser.class
+        );
+
+        UsersDAO.saveUser(actual);
+        CommonUser expected = (CommonUser) UserService.doLogin(actual.getEmail(), actual.getPassword());
+
+        assertEquals(expected.getName(), actual.getName());
+        assertEquals(expected.getEmail(), actual.getEmail());
+        assertEquals(expected.getPassword(), actual.getPassword());
+        assertEquals(expected.getStatus(), actual.getStatus());
+        assertEquals(expected.getAddress(), actual.getAddress());
+        assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
+        assertEquals(expected.getAccount(), actual.getAccount());
+        assertEquals(expected.getDocument(), actual.getDocument());
+    }
+
+    @Test
+    public void testLoginCommonUserIncorrectEmail() {
+        CommonUser actual = (CommonUser)UserService.RegisterUser(
+                "Chico da Silva",
+                "chicos@email.com",
+                "Test@123",
+                "Rua das Oliveiras, 120",
+                "86999586325",
+                "25695874852",
+                CommonUser.class
+        );
+
+        UsersDAO.saveUser(actual);
+
+        UserException exception = assertThrows(UserException.class, () -> UserService.CheckLoginData("email@email.br", actual.getPassword()));
+        assertEquals(UserException.invalidLoginMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testLoginCommonUserIncorrectPassword() {
+        CommonUser actual = (CommonUser)UserService.RegisterUser(
+                "Chico da Silva",
+                "chicos@email.com",
+                "Test@123",
+                "Rua das Oliveiras, 120",
+                "86999586325",
+                "25695874852",
+                CommonUser.class
+        );
+
+        UsersDAO.saveUser(actual);
+
+        UserException exception = assertThrows(UserException.class, () -> UserService.CheckLoginData(actual.getEmail(), "asd"));
+        assertEquals(UserException.invalidLoginMessage, exception.getMessage());
     }
 }

@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class UsersDAO {
+    //TODO: Remove after DB implementation
     private static final User testUser = new CommonUser(
             1L,
             "Teste",

@@ -38,15 +38,20 @@ public class UserService {
 
     protected static User doLogin(String email, String password){
         try {
-            User user = UsersDAO.findUserByEmail(email).orElseThrow(() -> new UserException(UserException.invalidLoginMessage));
-            if(!user.getPassword().equals(password)){
-                throw new UserException(UserException.invalidLoginMessage);
-            }
-            return user;
+            return CheckLoginData(email, password);
         } catch (UserException e) {
             logger.error(e);
             UIService.errorOutput(e.getMessage());
             return null;
         }
+    }
+
+
+    protected static User CheckLoginData(String email, String password) throws UserException {
+        User user = UsersDAO.findUserByEmail(email).orElseThrow(() -> new UserException(UserException.invalidLoginMessage));
+        if(!user.getPassword().equals(password)){
+            throw new UserException(UserException.invalidLoginMessage);
+        }
+        return user;
     }
 }

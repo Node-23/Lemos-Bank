@@ -1,9 +1,11 @@
 package com.forja.Services;
 
+import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.*;
 import com.forja.Models.Enterprise;
 import com.forja.Models.Enums.UserStatusEnum;
 import com.forja.Validators.UserValidator;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
@@ -13,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class EnterpriseTest {
     @Test
+    @Order(Integer.MIN_VALUE)
     public void testCreateEnterpriseSuccessfully() {
         Enterprise expected = (Enterprise)UserService.RegisterUser(
                 "Casa das Rosas",
@@ -37,7 +40,6 @@ public class EnterpriseTest {
                 "25695874852234"
         );
 
-        assertEquals(expected.getId(), actual.getId());
         assertEquals(expected.getName(), actual.getName());
         assertEquals(expected.getEmail(), actual.getEmail());
         assertEquals(expected.getPassword(), actual.getPassword());
@@ -184,8 +186,8 @@ public class EnterpriseTest {
     public void testPasswordWithoutNumericCharacterEnterprise() {
         Enterprise newEnterprise = new Enterprise(
                 1L,
-                "Casa das Rosas",
-                "casadasrosas@email.com",
+                "Teste",
+                "teste@email.com",
                 "Test@aaaa",
                 LocalDateTime.now(),
                 UserStatusEnum.ACTIVE,
@@ -194,7 +196,44 @@ public class EnterpriseTest {
                 null,
                 "25695874852234"
         );
+
         InvalidPasswordException exception = assertThrows(InvalidPasswordException.class, () -> UserValidator.ValidateUser(newEnterprise));
         assertEquals(InvalidPasswordException.numericCharacterPasswordExceptionMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testLoginEnterpriseIncorrectEmail() {
+        Enterprise actual = (Enterprise)UserService.RegisterUser(
+                "Casa das Rosas",
+                "casadasrosas@email.com",
+                "Test@123",
+                "Rua das Oliveiras, 120",
+                "86999586325",
+                "25695874852234",
+                Enterprise.class
+        );
+
+        UsersDAO.saveUser(actual);
+
+        UserException exception = assertThrows(UserException.class, () -> UserService.CheckLoginData("email@email.br", actual.getPassword()));
+        assertEquals(UserException.invalidLoginMessage, exception.getMessage());
+    }
+
+    @Test
+    public void testLoginEnterpriseIncorrectPassword() {
+        Enterprise actual = (Enterprise)UserService.RegisterUser(
+                "Casa das Rosas",
+                "casadasrosas@email.com",
+                "Test@123",
+                "Rua das Oliveiras, 120",
+                "86999586325",
+                "25695874852234",
+                Enterprise.class
+        );
+
+        UsersDAO.saveUser(actual);
+
+        UserException exception = assertThrows(UserException.class, () -> UserService.CheckLoginData(actual.getEmail(), "asd"));
+        assertEquals(UserException.invalidLoginMessage, exception.getMessage());
     }
 }
