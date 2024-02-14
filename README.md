@@ -20,6 +20,7 @@
         - 'Vanilla Database'
         - Hibernate
         - Mysql
+        - MongoDB?
         - Tests
         - Postgres
         - Database in a container
