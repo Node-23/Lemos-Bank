@@ -25,9 +25,9 @@ public class LoginMenu {
                 int typeOfUser = UIService.getUserOption();
                 Class<?> type = getTypeOfUser(typeOfUser);
                 if(type == CommonUser.class){
-                    UsersDAO.saveUser(UIService.CreateCommonUser());
+                    UsersDAO.saveUser(UIService.getUserData(type));
                 }else if(type == Enterprise.class){
-                    UsersDAO.saveUser(UIService.CreateEnterpriseUser());
+                    UsersDAO.saveUser(UIService.getUserData(type));
                 }else{
                     UIService.errorOutput("Invalid option!");
                 }

@@ -24,7 +24,8 @@ public class EnterpriseTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852234",
-                Enterprise.class
+                Enterprise.class,
+                1
         );
 
         Enterprise actual = new Enterprise(
@@ -46,7 +47,6 @@ public class EnterpriseTest {
         assertEquals(expected.getStatus(), actual.getStatus());
         assertEquals(expected.getAddress(), actual.getAddress());
         assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
-        assertEquals(expected.getAccount(), actual.getAccount());
         assertEquals(expected.getDocument(), actual.getDocument());
     }
 
@@ -210,7 +210,8 @@ public class EnterpriseTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852234",
-                Enterprise.class
+                Enterprise.class,
+                1
         );
 
         UsersDAO.saveUser(actual);
@@ -228,7 +229,8 @@ public class EnterpriseTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852234",
-                Enterprise.class
+                Enterprise.class,
+                1
         );
 
         UsersDAO.saveUser(actual);

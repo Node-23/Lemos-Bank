@@ -12,7 +12,14 @@ import java.time.temporal.ChronoUnit;
 public class Saving extends Account{
     private LocalDateTime lastCheck;
     private int withdrawsThisMonth;
-    private int WITHDRAWS_LIMIT = 3;
+    private final int WITHDRAWS_LIMIT = 3;
+
+    public Saving(Long id, User user) {
+        super(id, user);
+        this.lastCheck = LocalDateTime.now();
+        this.withdrawsThisMonth = 0;
+    }
+
     @Override
     public void doWithdraw(BigDecimal value) {
         try {
