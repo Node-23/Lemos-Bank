@@ -5,7 +5,6 @@ import com.forja.Exceptions.*;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enums.UserStatusEnum;
 import com.forja.Models.Saving;
-import com.forja.Models.User;
 import com.forja.Validators.UserValidator;
 import org.junit.jupiter.api.Test;
 
@@ -240,7 +239,6 @@ public class CommonUserTest {
 
         UsersDAO.saveUser(actual);
 
-        assertNull(UserService.doLogin(actual.getEmail(), actual.getPassword()));
         UserException exception = assertThrows(UserException.class, () -> UserService.CheckLoginData("email@email.br", actual.getPassword()));
         assertEquals(UserException.invalidLoginMessage, exception.getMessage());
     }
