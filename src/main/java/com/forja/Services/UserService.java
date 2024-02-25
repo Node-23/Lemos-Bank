@@ -2,10 +2,10 @@ package com.forja.Services;
 
 import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.UserException;
-import com.forja.Models.CommonUser;
-import com.forja.Models.Enterprise;
+import com.forja.Models.User.CommonUser;
+import com.forja.Models.User.Enterprise;
 import com.forja.Models.Enums.UserStatusEnum;
-import com.forja.Models.User;
+import com.forja.Models.User.User;
 import com.forja.Validators.UserValidator;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

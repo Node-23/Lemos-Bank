@@ -1,7 +1,12 @@
 package com.forja.Services;
 
-import com.forja.Models.*;
+import com.forja.Models.Account.Checking;
+import com.forja.Models.Account.Saving;
+import com.forja.Models.User.CommonUser;
+import com.forja.Models.User.Enterprise;
+import com.forja.Models.User.User;
 
+import java.math.BigDecimal;
 import java.util.Scanner;
 
 public class UIService {
@@ -20,6 +25,10 @@ public class UIService {
 
     public static int getUserOption(){
         return input.nextInt();
+    }
+
+    public static BigDecimal getUserValue(){
+        return input.nextBigDecimal();
     }
 
     public static String getUserInput(){

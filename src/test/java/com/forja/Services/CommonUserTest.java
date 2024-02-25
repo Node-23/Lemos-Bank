@@ -2,9 +2,9 @@ package com.forja.Services;
 
 import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.*;
-import com.forja.Models.CommonUser;
+import com.forja.Models.User.CommonUser;
 import com.forja.Models.Enums.UserStatusEnum;
-import com.forja.Models.Saving;
+import com.forja.Models.Account.Saving;
 import com.forja.Validators.UserValidator;
 import org.junit.jupiter.api.Test;
 

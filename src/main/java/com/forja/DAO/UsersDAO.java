@@ -1,8 +1,8 @@
 package com.forja.DAO;
 
-import com.forja.Models.CommonUser;
+import com.forja.Models.User.CommonUser;
 import com.forja.Models.Enums.UserStatusEnum;
-import com.forja.Models.User;
+import com.forja.Models.User.User;
 import lombok.Getter;
 import lombok.Setter;
 
