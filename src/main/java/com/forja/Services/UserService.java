@@ -2,7 +2,6 @@ package com.forja.Services;
 
 import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.UserException;
-import com.forja.Models.Account;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enterprise;
 import com.forja.Models.Enums.UserStatusEnum;
@@ -18,7 +17,7 @@ public class UserService {
     private static long idCount = 1;
     private static final Logger logger = LogManager.getLogger(UserService.class);
 
-    protected static User RegisterUser(String name, String email, String password, String address, String phoneNumber, String document, Class<?> typeOfUser, int typeOfAccount){
+    protected static User RegisterUser(String name, String email, String password, String address, String phoneNumber, String document, Class<?> typeOfUser, Class<?> typeOfAccount){
         User user;
         if(typeOfUser == CommonUser.class){
             user = new CommonUser(idCount++,name, email, password, LocalDateTime.now(), UserStatusEnum.ACTIVE, address, phoneNumber, null, document);

@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CommonUserTest {
     @Test
@@ -24,7 +23,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         CommonUser actual = new CommonUser(
@@ -209,7 +208,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);
@@ -235,7 +234,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);
@@ -254,7 +253,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);
