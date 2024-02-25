@@ -25,6 +25,7 @@ public class HomeMenu {
     public static void doOption(int option){
         switch (option){
             case 1:
+                seeBalance();
                 break;
             case 2:
                 break;
@@ -34,5 +35,12 @@ public class HomeMenu {
                 UIService.errorOutput("Invalid option!");
                 break;
         }
+    }
+
+    public static void seeBalance(){
+        UIService.HeaderOutPut("BALANCE");
+        UIService.lineOutput("Your balance is:");
+        UIService.lineOutput("L$ "+UsersDAO.getLoggedUser().getAccount().getBalance().toString());
+        UIService.FooterOutput();
     }
 }

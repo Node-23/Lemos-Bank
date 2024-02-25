@@ -5,13 +5,13 @@ import com.forja.Exceptions.*;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enums.UserStatusEnum;
 import com.forja.Models.Saving;
+import com.forja.Models.User;
 import com.forja.Validators.UserValidator;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class CommonUserTest {
     @Test
@@ -24,7 +24,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         CommonUser actual = new CommonUser(
@@ -209,7 +209,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);
@@ -235,11 +235,12 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);
 
+        assertNull(UserService.doLogin(actual.getEmail(), actual.getPassword()));
         UserException exception = assertThrows(UserException.class, () -> UserService.CheckLoginData("email@email.br", actual.getPassword()));
         assertEquals(UserException.invalidLoginMessage, exception.getMessage());
     }
@@ -254,7 +255,7 @@ public class CommonUserTest {
                 "86999586325",
                 "25695874852",
                 CommonUser.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);

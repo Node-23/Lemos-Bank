@@ -4,6 +4,7 @@ import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.*;
 import com.forja.Models.Enterprise;
 import com.forja.Models.Enums.UserStatusEnum;
+import com.forja.Models.Saving;
 import com.forja.Validators.UserValidator;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -25,7 +26,7 @@ public class EnterpriseTest {
                 "86999586325",
                 "25695874852234",
                 Enterprise.class,
-                1
+                Saving.class
         );
 
         Enterprise actual = new Enterprise(
@@ -211,7 +212,7 @@ public class EnterpriseTest {
                 "86999586325",
                 "25695874852234",
                 Enterprise.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);
@@ -230,7 +231,7 @@ public class EnterpriseTest {
                 "86999586325",
                 "25695874852234",
                 Enterprise.class,
-                1
+                Saving.class
         );
 
         UsersDAO.saveUser(actual);

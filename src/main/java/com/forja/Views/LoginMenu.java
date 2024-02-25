@@ -3,6 +3,7 @@ package com.forja.Views;
 import com.forja.DAO.UsersDAO;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enterprise;
+import com.forja.Models.Saving;
 import com.forja.Models.User;
 import com.forja.Services.UIService;
 
@@ -37,6 +38,7 @@ public class LoginMenu {
                 break;
             case 9:
                 UsersDAO.setLoggedUser(UsersDAO.getUsers().get(0));
+                UsersDAO.getLoggedUser().setAccount(new Saving(1L, UsersDAO.getLoggedUser()));
                 HomeMenu.doHomeMenu();
                 break;
             default:

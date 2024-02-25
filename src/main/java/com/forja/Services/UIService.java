@@ -71,10 +71,14 @@ public class UIService {
             UIService.lineOutput("2- Checking");
             typeOfAccount = UIService.getUserOption();
         }while (typeOfAccount != 1 && typeOfAccount != 2);
-        return typeOfUser == CommonUser.class? createCommonUser(name, email, address, phoneNumber, password, typeOfAccount) : createEnterpriseUser(name, email, address, phoneNumber, password, typeOfAccount);
+        if(typeOfUser == CommonUser.class){
+            return createCommonUser(name, email, address, phoneNumber, password, typeOfAccount == 1? Saving.class : Checking.class);
+        }else{
+            return createEnterpriseUser(name, email, address, phoneNumber, password, typeOfAccount == 1? Saving.class : Checking.class);
+        }
     }
 
-    private static CommonUser createCommonUser(String name, String email, String address, String phoneNumber, String password, int typeOfAccount){
+    private static CommonUser createCommonUser(String name, String email, String address, String phoneNumber, String password, Class<?> typeOfAccount){
         UIService.resetInput();
         UIService.lineOutput("Your CPF:");
         String cpf = UIService.getUserInput();
@@ -82,7 +86,7 @@ public class UIService {
         return (CommonUser) UserService.RegisterUser(name, email, password, address, phoneNumber, cpf, CommonUser.class, typeOfAccount);
     }
 
-    private static Enterprise createEnterpriseUser(String name, String email, String address, String phoneNumber, String password, int typeOfAccount) {
+    private static Enterprise createEnterpriseUser(String name, String email, String address, String phoneNumber, String password, Class<?> typeOfAccount) {
         UIService.resetInput();
         UIService.lineOutput("Your CNPJ:");
         String cnpj = UIService.getUserInput();
