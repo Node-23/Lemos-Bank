@@ -4,11 +4,11 @@ import com.forja.Models.Enums.AccountStatusEnum;
 import lombok.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
 public abstract class Account {
     private Long id;
@@ -16,6 +16,14 @@ public abstract class Account {
     private AccountStatusEnum status;
     private List<Transfer> transfers;
     private BigDecimal balance;
+
+    public Account(Long id, User user) {
+        this.id = id;
+        this.user = user;
+        this.status = AccountStatusEnum.ACTIVE;
+        this.transfers = new ArrayList<>();
+        this.balance = BigDecimal.ZERO;
+    }
 
     protected void withdraw(BigDecimal value) throws Exception {
         BigDecimal newBalance = this.getBalance().subtract(value);

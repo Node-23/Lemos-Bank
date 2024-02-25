@@ -4,6 +4,7 @@ import com.forja.DAO.UsersDAO;
 import com.forja.Exceptions.*;
 import com.forja.Models.CommonUser;
 import com.forja.Models.Enums.UserStatusEnum;
+import com.forja.Models.Saving;
 import com.forja.Validators.UserValidator;
 import org.junit.jupiter.api.Test;
 
@@ -22,7 +23,8 @@ public class CommonUserTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852",
-                CommonUser.class
+                CommonUser.class,
+                1
         );
 
         CommonUser actual = new CommonUser(
@@ -44,7 +46,6 @@ public class CommonUserTest {
         assertEquals(expected.getStatus(), actual.getStatus());
         assertEquals(expected.getAddress(), actual.getAddress());
         assertEquals(expected.getPhoneNumber(), actual.getPhoneNumber());
-        assertEquals(expected.getAccount(), actual.getAccount());
         assertEquals(expected.getDocument(), actual.getDocument());
     }
 
@@ -207,7 +208,8 @@ public class CommonUserTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852",
-                CommonUser.class
+                CommonUser.class,
+                1
         );
 
         UsersDAO.saveUser(actual);
@@ -232,7 +234,8 @@ public class CommonUserTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852",
-                CommonUser.class
+                CommonUser.class,
+                1
         );
 
         UsersDAO.saveUser(actual);
@@ -250,7 +253,8 @@ public class CommonUserTest {
                 "Rua das Oliveiras, 120",
                 "86999586325",
                 "25695874852",
-                CommonUser.class
+                CommonUser.class,
+                1
         );
 
         UsersDAO.saveUser(actual);

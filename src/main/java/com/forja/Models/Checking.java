@@ -4,6 +4,10 @@ import java.math.BigDecimal;
 
 public class Checking extends Account{
 
+    public Checking(Long id, User user) {
+        super(id, user);
+    }
+
     @Override
     public void doWithdraw(BigDecimal value) {
         try {

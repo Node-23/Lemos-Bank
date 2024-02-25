@@ -1,8 +1,6 @@
 package com.forja.Services;
 
-import com.forja.Models.CommonUser;
-import com.forja.Models.Enterprise;
-import com.forja.Models.User;
+import com.forja.Models.*;
 
 import java.util.Scanner;
 
@@ -53,7 +51,7 @@ public class UIService {
         return UserService.doLogin(email, password);
     }
 
-    public static CommonUser CreateCommonUser(){
+    public static User getUserData(Class<?> typeOfUser){
         UIService.resetInput();
         UIService.HeaderOutPut("REGISTER USER");
         UIService.lineOutput("Your name:");
@@ -64,31 +62,32 @@ public class UIService {
         String address = UIService.getUserInput();
         UIService.lineOutput("Your phoneNumber:");
         String phoneNumber = UIService.getUserInput();
-        UIService.lineOutput("Your CPF:");
-        String cpf = UIService.getUserInput();
         UIService.lineOutput("Your password:");
         String password = UIService.getUserInput();
-        UIService.FooterOutput();
-        return (CommonUser) UserService.RegisterUser(name, email, password, address, phoneNumber, cpf, CommonUser.class);
+        int typeOfAccount;
+        do{
+            UIService.HeaderOutPut("TYPE OF ACCOUNT");
+            UIService.lineOutput("1- Saving");
+            UIService.lineOutput("2- Checking");
+            typeOfAccount = UIService.getUserOption();
+        }while (typeOfAccount != 1 && typeOfAccount != 2);
+        return typeOfUser == CommonUser.class? createCommonUser(name, email, address, phoneNumber, password, typeOfAccount) : createEnterpriseUser(name, email, address, phoneNumber, password, typeOfAccount);
     }
 
-    public static Enterprise CreateEnterpriseUser() {
+    private static CommonUser createCommonUser(String name, String email, String address, String phoneNumber, String password, int typeOfAccount){
         UIService.resetInput();
-        UIService.HeaderOutPut("REGISTER USER");
-        UIService.lineOutput("Business name:");
-        String name = UIService.getUserInput();
-        UIService.lineOutput("Your email:");
-        String email = UIService.getUserInput();
-        UIService.lineOutput("Your address:");
-        String address = UIService.getUserInput();
-        UIService.lineOutput("Your phoneNumber:");
-        String phoneNumber = UIService.getUserInput();
+        UIService.lineOutput("Your CPF:");
+        String cpf = UIService.getUserInput();
+        UIService.FooterOutput();
+        return (CommonUser) UserService.RegisterUser(name, email, password, address, phoneNumber, cpf, CommonUser.class, typeOfAccount);
+    }
+
+    private static Enterprise createEnterpriseUser(String name, String email, String address, String phoneNumber, String password, int typeOfAccount) {
+        UIService.resetInput();
         UIService.lineOutput("Your CNPJ:");
         String cnpj = UIService.getUserInput();
-        UIService.lineOutput("Your password:");
-        String password = UIService.getUserInput();
         UIService.FooterOutput();
-        return (Enterprise) UserService.RegisterUser(name, email, password, address, phoneNumber, cnpj, Enterprise.class);
+        return (Enterprise) UserService.RegisterUser(name, email, password, address, phoneNumber, cnpj, Enterprise.class, typeOfAccount);
     }
 
     public static void welcomeHeader(){
