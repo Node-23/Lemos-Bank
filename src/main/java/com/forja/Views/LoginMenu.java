@@ -8,7 +8,7 @@ import com.forja.Models.User.User;
 import com.forja.Services.UIService;
 
 public class LoginMenu {
-    public static void doOption(int option){
+    private static void doOption(int option){
         switch (option){
             case 1:
                 User user = UIService.Login();
@@ -49,6 +49,20 @@ public class LoginMenu {
                 UIService.errorOutput("Invalid option!");
                 break;
         }
+    }
+
+    public static void doLoginMenu(){
+        int option;
+        do{
+            UIService.welcomeHeader();
+            UIService.HeaderOutPut("INITIAL MENU");
+            UIService.lineOutput("1 - Login");
+            UIService.lineOutput("2 - Register account");
+            UIService.lineOutput("3 - Exit");
+            UIService.FooterOutput();
+            option = UIService.getUserOption();
+            doOption(option);
+        }while (option != 3);
     }
 
     private static Class<?> getTypeOfUser(int option){
