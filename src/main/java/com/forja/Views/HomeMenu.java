@@ -17,11 +17,7 @@ public class HomeMenu {
             UIService.lineOutput("5- Logout");
             UIService.FooterOutput();
             int option = UIService.getUserOption();
-            if(option == 5){
-                break;
-            }else{
-                doOption(option);
-            }
+            doOption(option);
         }
     }
 
@@ -38,10 +34,18 @@ public class HomeMenu {
                 break;
             case 4:
                 break;
+            case 5:
+                logout();
+                break;
             default:
                 UIService.errorOutput("Invalid option!");
                 break;
         }
+    }
+
+    public static void logout(){
+        UsersDAO.setLoggedUser(null);
+        LoginMenu.doLoginMenu();
     }
 
     public static void seeBalance(){
