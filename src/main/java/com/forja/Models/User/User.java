@@ -1,5 +1,6 @@
-package com.forja.Models;
+package com.forja.Models.User;
 
+import com.forja.Models.Account.Account;
 import com.forja.Models.Enums.UserStatusEnum;
 import lombok.*;
 

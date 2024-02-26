@@ -1,9 +1,9 @@
 package com.forja.Services;
 
-import com.forja.Models.Account;
-import com.forja.Models.Checking;
-import com.forja.Models.Saving;
-import com.forja.Models.User;
+import com.forja.Models.Account.Account;
+import com.forja.Models.Account.Checking;
+import com.forja.Models.Account.Saving;
+import com.forja.Models.User.User;
 
 public class AccountService {
     private static long idCount = 1;

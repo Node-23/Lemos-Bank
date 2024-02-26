@@ -1,8 +1,8 @@
 package com.forja.Validators;
 
 import com.forja.Exceptions.*;
-import com.forja.Models.CommonUser;
-import com.forja.Models.User;
+import com.forja.Models.User.CommonUser;
+import com.forja.Models.User.User;
 
 import java.util.regex.Pattern;
 

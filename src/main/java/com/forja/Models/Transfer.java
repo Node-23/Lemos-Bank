@@ -1,5 +1,6 @@
 package com.forja.Models;
 
+import com.forja.Models.Account.Account;
 import com.forja.Models.Enums.TransferStatusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

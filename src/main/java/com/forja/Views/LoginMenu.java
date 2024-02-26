@@ -1,10 +1,10 @@
 package com.forja.Views;
 
 import com.forja.DAO.UsersDAO;
-import com.forja.Models.CommonUser;
-import com.forja.Models.Enterprise;
-import com.forja.Models.Saving;
-import com.forja.Models.User;
+import com.forja.Models.User.CommonUser;
+import com.forja.Models.User.Enterprise;
+import com.forja.Models.Account.Saving;
+import com.forja.Models.User.User;
 import com.forja.Services.UIService;
 
 public class LoginMenu {
@@ -16,6 +16,7 @@ public class LoginMenu {
                     break;
                 }
                 UsersDAO.setLoggedUser(user);
+                UIService.sucessOutput("Logged In!");
                 HomeMenu.doHomeMenu();
                 break;
             case 2:
@@ -25,18 +26,21 @@ public class LoginMenu {
                 UIService.FooterOutput();
                 int typeOfUser = UIService.getUserOption();
                 Class<?> type = getTypeOfUser(typeOfUser);
-                if(type == CommonUser.class){
-                    UsersDAO.saveUser(UIService.getUserData(type));
-                }else if(type == Enterprise.class){
-                    UsersDAO.saveUser(UIService.getUserData(type));
-                }else{
+                if(type == null){
                     UIService.errorOutput("Invalid option!");
+                }else{
+                    User newUser = UIService.getUserData(type);
+                    if(newUser != null){
+                        UsersDAO.saveUser(newUser);
+                        UIService.sucessOutput("User successfully created!");
+                    }
                 }
                 break;
             case 3:
                 UIService.otherOutput("Closing...");
                 break;
             case 9:
+                //TODO: Remove after DB implementation
                 UsersDAO.setLoggedUser(UsersDAO.getUsers().get(0));
                 UsersDAO.getLoggedUser().setAccount(new Saving(1L, UsersDAO.getLoggedUser()));
                 HomeMenu.doHomeMenu();
